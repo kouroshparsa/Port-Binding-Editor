@@ -26,21 +26,20 @@ namespace PBE
             rtb_validation_results.Text = Validator.GetValidationResults(portBindingMasterPath, generatorPath);
             PipelineDataController pdc;
 
-            // Receive pipeline data:
+            
             foreach (Port port in bindings.allPorts.Values)
             {
-                pdc = new PipelineDataController(port, true, bindings.AppName);
+                // Receive pipeline data:
+                pdc = new PipelineDataController(port, true);
                 List<PropertyBag> warnings = pdc.properties.Where(pb => pb.Failed).ToList();
                 foreach (PropertyBag prop in warnings)
                 {
                     dataGridViewValidationResults.Rows.Add(port.name, "Receive Pipeline Data", prop.Name, prop.Value, prop.Warning);
                 }
-            }
-            // Send pipeline data:
-            foreach (Port port in bindings.allPorts.Values)
-            {
-                pdc = new PipelineDataController(port, false, bindings.AppName);
-                List<PropertyBag> warnings = pdc.properties.Where(pb => pb.Failed).ToList();
+
+                // Send pipeline data:
+                pdc = new PipelineDataController(port, false);
+                warnings = pdc.properties.Where(pb => pb.Failed).ToList();
                 foreach (PropertyBag prop in warnings)
                 {
                     dataGridViewValidationResults.Rows.Add(port.name, "Send Pipeline Data", prop.Name, prop.Value, prop.Warning);
@@ -51,7 +50,7 @@ namespace PBE
             // TransportType:
             foreach (Port port in bindings.allPorts.Values)
             {
-                var ttc = new TransportTypeController(port, bindings.AppName);
+                var ttc = new TransportTypeController(port);
                 List<PropertyBag> warnings = ttc.properties.Where(pb => pb.Failed).ToList();
                 foreach (PropertyBag prop in warnings)
                 {

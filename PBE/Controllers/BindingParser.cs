@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 
+
 namespace PBE.Controllers
 {
     public class BindingParser
@@ -39,7 +40,7 @@ namespace PBE.Controllers
         {
             var doc = new XmlDocument();
             doc.Load(path);
-            DataBindings bindings = new DataBindings(doc);
+            DataBindings bindings = new DataBindings();
             LoadReceivePorts(doc, bindings);
             LoadSendPorts(doc, bindings);
             SetGuids(path, bindings);
@@ -107,6 +108,22 @@ namespace PBE.Controllers
             }
 
             return results;
+        }
+
+        internal static DataBindings ParseWithSubstitutions(string portBindingFilePath, Dictionary<string, string> bindingVars)
+        {
+            string bindingContents = File.ReadAllText(portBindingFilePath);
+            foreach (KeyValuePair<string, string> kv in bindingVars)
+            {
+                bindingContents = bindingContents.Replace("${" + kv.Key + "}", kv.Value);
+            }
+            var doc = new XmlDocument();
+            doc.LoadXml(bindingContents);
+            DataBindings bindings = new DataBindings();
+            LoadReceivePorts(doc, bindings);
+            LoadSendPorts(doc, bindings);
+            SetGuids(portBindingFilePath, bindings);
+            return bindings;
         }
     }
 }

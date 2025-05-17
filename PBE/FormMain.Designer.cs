@@ -49,11 +49,14 @@
             this.pipelineDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.receiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.importFromBindingFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromBindingFileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.importSettingsFileGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadWithSubstitutionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportBindingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnValidateSettings = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -152,9 +155,10 @@
             this.copyPortToolStripMenuItem,
             this.pastePortToolStripMenuItem,
             this.renamePortToolStripMenuItem,
-            this.pipelineDataToolStripMenuItem});
+            this.pipelineDataToolStripMenuItem,
+            this.applicationToolStripMenuItem});
             this.contextMenuStripTreeNodes.Name = "contextMenuStripTreeNodes";
-            this.contextMenuStripTreeNodes.Size = new System.Drawing.Size(180, 202);
+            this.contextMenuStripTreeNodes.Size = new System.Drawing.Size(180, 224);
             // 
             // filtersToolStripMenuItem
             // 
@@ -235,6 +239,13 @@
             this.sendToolStripMenuItem.Text = "Send";
             this.sendToolStripMenuItem.Click += new System.EventHandler(this.sendToolStripMenuItem_Click);
             // 
+            // applicationToolStripMenuItem
+            // 
+            this.applicationToolStripMenuItem.Name = "applicationToolStripMenuItem";
+            this.applicationToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.applicationToolStripMenuItem.Text = "Application";
+            this.applicationToolStripMenuItem.Click += new System.EventHandler(this.applicationToolStripMenuItem_Click);
+            // 
             // menuStripMain
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -250,7 +261,9 @@
             this.importFromBindingFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importFromBindingFileToolStripMenuItem1,
             this.importSettingsFileGeneratorToolStripMenuItem,
-            this.exportBindingsToolStripMenuItem});
+            this.reloadWithSubstitutionsToolStripMenuItem,
+            this.exportBindingsToolStripMenuItem,
+            this.resetAllToolStripMenuItem});
             this.importFromBindingFileToolStripMenuItem.Name = "importFromBindingFileToolStripMenuItem";
             this.importFromBindingFileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.importFromBindingFileToolStripMenuItem.Text = "File";
@@ -269,6 +282,13 @@
             this.importSettingsFileGeneratorToolStripMenuItem.Text = "Import settings file generator";
             this.importSettingsFileGeneratorToolStripMenuItem.Click += new System.EventHandler(this.importSettingsFileGeneratorToolStripMenuItem_Click);
             // 
+            // reloadWithSubstitutionsToolStripMenuItem
+            // 
+            this.reloadWithSubstitutionsToolStripMenuItem.Name = "reloadWithSubstitutionsToolStripMenuItem";
+            this.reloadWithSubstitutionsToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.reloadWithSubstitutionsToolStripMenuItem.Text = "Reload with substitutions";
+            this.reloadWithSubstitutionsToolStripMenuItem.Click += new System.EventHandler(this.reloadWithSubstitutionsToolStripMenuItem_Click);
+            // 
             // exportBindingsToolStripMenuItem
             // 
             this.exportBindingsToolStripMenuItem.Name = "exportBindingsToolStripMenuItem";
@@ -276,11 +296,18 @@
             this.exportBindingsToolStripMenuItem.Text = "Export bindings";
             this.exportBindingsToolStripMenuItem.Click += new System.EventHandler(this.exportBindingsToolStripMenuItem_Click);
             // 
+            // resetAllToolStripMenuItem
+            // 
+            this.resetAllToolStripMenuItem.Name = "resetAllToolStripMenuItem";
+            this.resetAllToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.resetAllToolStripMenuItem.Text = "Delete and Reset All";
+            this.resetAllToolStripMenuItem.Click += new System.EventHandler(this.resetAllToolStripMenuItem_Click);
+            // 
             // btnValidateSettings
             // 
             this.btnValidateSettings.Location = new System.Drawing.Point(141, 76);
             this.btnValidateSettings.Name = "btnValidateSettings";
-            this.btnValidateSettings.Size = new System.Drawing.Size(105, 23);
+            this.btnValidateSettings.Size = new System.Drawing.Size(80, 23);
             this.btnValidateSettings.TabIndex = 8;
             this.btnValidateSettings.Text = "Validate";
             this.btnValidateSettings.UseVisualStyleBackColor = true;
@@ -363,7 +390,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "Port Binding Editor 1.0.0";
+            this.Text = "Port Binding Editor 1.0.1";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.contextMenuStripTreeNodes.ResumeLayout(false);
             this.menuStripMain.ResumeLayout(false);
@@ -410,6 +437,9 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFlowDiagram;
         private System.Windows.Forms.ToolStripMenuItem saveImageToolStripMenuItem;
         private Cyotek.Windows.Forms.ImageBox imageBox1;
+        private System.Windows.Forms.ToolStripMenuItem reloadWithSubstitutionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem applicationToolStripMenuItem;
     }
 }
 

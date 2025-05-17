@@ -10,11 +10,11 @@ namespace PBE
     {
         TransportTypeController ttc;
 
-        public TransportTypeEditorForm(Port port, string applicationName)
+        public TransportTypeEditorForm(Port port)
         {
             InitializeComponent();
             textBoxPortName.Text = port.name;
-            ttc = new TransportTypeController(port, applicationName);
+            ttc = new TransportTypeController(port);
             foreach (PropertyBag prop in ttc.properties)
             {
                 dataGridViewTransportType.Rows.Add(prop.Name, prop.Value, prop.Warning);

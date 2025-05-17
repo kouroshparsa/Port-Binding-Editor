@@ -99,6 +99,12 @@
     <Compile Include="Controllers\PropertyBag.cs" />
     <Compile Include="Controllers\SettingsFileGeneratorParser.cs" />
     <Compile Include="Controllers\Validator.cs" />
+    <Compile Include="EnvironmentSlectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnvironmentSlectionForm.Designer.cs">
+      <DependentUpon>EnvironmentSlectionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     <Compile Include="ValidationForm.Designer.cs">
       <DependentUpon>ValidationForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EnvironmentSlectionForm.resx">
+      <DependentUpon>EnvironmentSlectionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FilterEditorForm.resx">
       <DependentUpon>FilterEditorForm.cs</DependentUpon>
     </EmbeddedResource>

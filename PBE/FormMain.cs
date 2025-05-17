@@ -5,14 +5,14 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-
-
+using System.Linq;
+using PBE.Utils;
 
 namespace PBE
 {
     public partial class FormMain : Form
     {
-        private DataBindings bindings;
+        private DataBindings bindings = new DataBindings();
         public FormMain()
         {
             InitializeComponent();
@@ -21,8 +21,14 @@ namespace PBE
 
         private void DrawFlow()
         {
-            Image img = GraphvizHelper.GetGraph(this.bindings);
-            imageBox1.Image = img;
+            try
+            {
+                Image img = GraphvizHelper.GetGraph(this.bindings);
+                imageBox1.Image = img;
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Error encountered when trying to generate the flow diagram.\r\n" + ex);
+            }
         }
         private void btnPortBindingsMaster_Click(object sender, EventArgs e)
         {
@@ -31,9 +37,16 @@ namespace PBE
                 if (of.ShowDialog() == DialogResult.OK)
                 {
                     textBoxPortBindingMasterFile.Text = of.FileName;
-                    this.bindings = BindingParser.Parse(of.FileName);
-                    TreeNodeHelper.DrawTree(treeView1, this.bindings);
-                    DrawFlow();
+                    try
+                    {
+                        this.bindings = BindingParser.Parse(of.FileName);
+                        TreeNodeHelper.DrawTree(treeView1, this.bindings);
+                        DrawFlow();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
 
                 }
             }
@@ -85,7 +98,6 @@ namespace PBE
             Port port = bindings.sendPorts[sendPortName];
             var form = new FilterEditorForm(port);
             form.ShowDialog();
-            //bindings.sendPorts[sendPortName].filters = form.GetFilters();
             TreeNodeHelper.DrawTree(treeView1, this.bindings);
             DrawFlow();
         }
@@ -131,7 +143,7 @@ namespace PBE
             else
                 port = bindings.receivePorts[portName];
             
-            var form = new TransportTypeEditorForm(port, bindings.AppName);
+            var form = new TransportTypeEditorForm(port);
             form.ShowDialog();
             
         }
@@ -285,7 +297,8 @@ namespace PBE
                 return;
 
             var port = bindings.GetPort(portName);
-            Clipboard.SetText(port.outerXml);
+            string xml = XmlHelper.FormatXml(port.outerXml);
+            Clipboard.SetText(xml);
         }
 
         private string replace_guids(string str)
@@ -368,7 +381,7 @@ namespace PBE
             else
                 port = bindings.receivePorts[portName];
 
-            var form = new PipelineDataEditorForm(port, true, bindings.AppName);
+            var form = new PipelineDataEditorForm(port, true);
             form.ShowDialog();
         }
 
@@ -384,7 +397,7 @@ namespace PBE
             else
                 port = bindings.receivePorts[portName];
 
-            var form = new PipelineDataEditorForm(port, false, bindings.AppName);
+            var form = new PipelineDataEditorForm(port, false);
             form.ShowDialog();
         }
 
@@ -423,6 +436,68 @@ namespace PBE
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+        }
+
+        private void importPortBindingFileWithSubstitutionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void reloadWithSubstitutionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxPortBindingMasterFile.Text) ||
+                string.IsNullOrEmpty(textBoxSettingsFileGeneratorFile.Text))
+            {
+                MessageBox.Show("Please enter a port binding master file and a file generator.");
+                return;
+            }
+
+            try
+            {
+                var res = SettingsFileGeneratorParser.Parse(textBoxSettingsFileGeneratorFile.Text);
+
+                var form = new EnvironmentSlectionForm(res.Keys.ToArray());
+                form.ShowDialog();
+                if (form.selectedEnv != null) {
+                    this.bindings = BindingParser.ParseWithSubstitutions(textBoxPortBindingMasterFile.Text, res[form.selectedEnv]);
+                    TreeNodeHelper.DrawTree(treeView1, this.bindings);
+                    DrawFlow();
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+        }
+
+        private void resetAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBoxPortBindingMasterFile.Text = "";
+            textBoxSettingsFileGeneratorFile.Text = "";
+            this.imageBox1.Image = null; ;
+            this.bindings = new DataBindings();
+            treeView1.Nodes.Clear();
+        }
+
+        private void applicationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string portName = GetSelectedPort();
+            if (portName == null)
+                return;
+
+            Port port;
+            if (bindings.receivePorts.ContainsKey(portName))
+                port = bindings.receivePorts[portName];
+            else
+                port = bindings.sendPorts[portName];
+
+            var form = new InputForm("Application Name:", port.applicationName);
+            form.ShowDialog();
+            if (form.ok)
+            {
+                port.applicationName = form.enteredValue;
+                TreeNodeHelper.DrawTree(treeView1, this.bindings);
+                DrawFlow();
+            }
         }
     }
 }

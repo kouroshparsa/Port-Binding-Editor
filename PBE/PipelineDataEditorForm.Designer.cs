@@ -32,11 +32,11 @@
             this.textBoxPortName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewData = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxPromotions = new System.Windows.Forms.TextBox();
             this.Property = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Warnings = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxPromotions = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,6 +80,25 @@
             this.dataGridViewData.Size = new System.Drawing.Size(606, 293);
             this.dataGridViewData.TabIndex = 3;
             // 
+            // Property
+            // 
+            this.Property.HeaderText = "Property";
+            this.Property.Name = "Property";
+            this.Property.ReadOnly = true;
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            this.Value.Width = 200;
+            // 
+            // Warnings
+            // 
+            this.Warnings.HeaderText = "Warnings";
+            this.Warnings.Name = "Warnings";
+            this.Warnings.ReadOnly = true;
+            this.Warnings.Width = 200;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -102,25 +121,6 @@
             this.textBoxPromotions.TabIndex = 4;
             this.textBoxPromotions.WordWrap = false;
             // 
-            // Property
-            // 
-            this.Property.HeaderText = "Property";
-            this.Property.Name = "Property";
-            this.Property.ReadOnly = true;
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            this.Value.Width = 200;
-            // 
-            // Warnings
-            // 
-            this.Warnings.HeaderText = "Warnings";
-            this.Warnings.Name = "Warnings";
-            this.Warnings.ReadOnly = true;
-            this.Warnings.Width = 200;
-            // 
             // PipelineDataEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,7 +135,7 @@
             this.MinimizeBox = false;
             this.Name = "PipelineDataEditorForm";
             this.ShowIcon = false;
-            this.Text = "Pipeline Data Editor";
+            this.Text = "Pipeline Data Editor© 1.1.0";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

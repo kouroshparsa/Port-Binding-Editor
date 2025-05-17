@@ -11,6 +11,8 @@ namespace PBE.Models
         private string _transportTypeData;
         private string _receivePipelineData;
         private string _sendPipelineData;
+        private string _receivePipelineName = null;
+        private string _sendPipelineName = null;
 
         public SendPort(string xml)
         {
@@ -28,6 +30,7 @@ namespace PBE.Models
         private void CreatePort(string name, XmlNode node, string outerXml, int ind)
         {
             this.outerXml = outerXml; // This must be set first
+            this.applicationName = node.SelectSingleNode("./ApplicationName").InnerText;
             portNode = node;
             _name = name;
             _address = node.SelectSingleNode("./PrimaryTransport/Address").InnerText;
@@ -38,12 +41,20 @@ namespace PBE.Models
                 _filters = fnode.InnerText;
             }
             _transportTypeData = this.transportTypeDataNode.InnerText;
-            var n = node.SelectSingleNode("./ReceivePipelineData");
-            if(n!=null)
-                _receivePipelineData = n.InnerText;
-            n = node.SelectSingleNode("./SendPipelineData");
-            if (n != null)
-                _sendPipelineData = n.InnerText;
+            this.receivePipelineDataNode = node.SelectSingleNode("./ReceivePipelineData");
+            if(this.receivePipelineDataNode != null)
+                _receivePipelineData = this.receivePipelineDataNode.InnerText;
+
+            this.sendPipelineDataNode = node.SelectSingleNode("./SendPipelineData");
+            if (this.sendPipelineDataNode != null)
+                _sendPipelineData = this.sendPipelineDataNode.InnerText;
+
+            var n = node.SelectSingleNode("ReceivePipeline");
+            if (n != null && n.Attributes["Name"] != null)
+                _receivePipelineName = n.Attributes["Name"].Value.ToString();
+            n = node.SelectSingleNode("SendPipeline");
+            if (n != null && n.Attributes["Name"] != null)
+                _sendPipelineName = n.Attributes["Name"].Value.ToString();
         }
 
         public override XmlNode transportTypeDataNode
@@ -166,5 +177,16 @@ namespace PBE.Models
             }
         }
 
+        public override string receivePipelineName
+        {
+            get { return _receivePipelineName; }
+            set { _receivePipelineName = value; }
+        }
+
+        public override string sendPipelineName
+        {
+            get { return _sendPipelineName; }
+            set { _sendPipelineName = value; }
+        }
     }
 }

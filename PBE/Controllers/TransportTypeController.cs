@@ -10,13 +10,11 @@ namespace PBE.Controllers
     public class TransportTypeController
     {
         public List<PropertyBag> properties = new List<PropertyBag>();
-        private string applicationName;
         private Port port = null;
 
-        public TransportTypeController(Port port, string applicationName)
+        public TransportTypeController(Port port)
         {
             this.port = port;
-            this.applicationName = applicationName;
             SetData(port.transportTypeData);
             
         }

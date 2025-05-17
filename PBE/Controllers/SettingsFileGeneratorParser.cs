@@ -12,6 +12,8 @@ namespace PBE.Controllers
     {
         public static Dictionary<string, Dictionary<string, string>> Parse(string path)
         {
+            // returns data[environment][substitution-key-name]
+
             Dictionary<string, Dictionary<string, string>> data = new Dictionary<string, Dictionary<string, string>>();
             string contents = "";
             using (StreamReader reader = new StreamReader(path)) {
@@ -31,8 +33,10 @@ namespace PBE.Controllers
             {
                 throw new Exception("Invalid SettingsFileGenerator.");
             }
+
             Dictionary<int, string> environment_inds = new Dictionary<int, string>();
             bool settingsRow = false;
+            int default_val_ind = 1;
             foreach (var row in rows)
             {
                 if (row[0] == "Environment Name:")
@@ -41,6 +45,10 @@ namespace PBE.Controllers
                     {
                         string env = row[ind];
                         environment_inds[ind] = env;
+                        if(env == "Default Values")
+                        {
+                            default_val_ind = ind;
+                        }
                         data[env] = new Dictionary<string, string>();
                     }
                 }else if(row[0] == "Settings:")
@@ -48,10 +56,16 @@ namespace PBE.Controllers
                     settingsRow = true;
                 }else if(settingsRow) {
                     string key = row[0];
+                    string default_val = environment_inds[default_val_ind];
                     for (int ind = 1; ind < row.Count; ind++)
                     {
                         string env = environment_inds[ind];
-                        data[env][key] = row[ind];
+                        string val = row[ind];
+                        if (ind != default_val_ind && string.IsNullOrEmpty(val))
+                        {
+                            val = row[default_val_ind];
+                        }
+                        data[env][key] = val;
                     }
                 }
             }

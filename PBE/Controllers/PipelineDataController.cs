@@ -10,22 +10,20 @@ namespace PBE.Controllers
     {
         public List<PropertyBag> properties = new List<PropertyBag>();
         public string promotions = "";
-        private string applicationName;
         private Port port = null;
         private bool isReceivePipelineData = false;
 
-        public PipelineDataController(Port port, bool isReceivePipelineData, string applicationName)
+        public PipelineDataController(Port port, bool isReceivePipelineData)
         {
             this.port = port;
-            this.applicationName = applicationName;
             this.isReceivePipelineData = isReceivePipelineData;
             if (isReceivePipelineData)
-                SetData(port.receivePipelineData);
+                SetData(port.receivePipelineData, port.receivePipelineName);
             else
-                SetData(port.sendPipelineData);
+                SetData(port.sendPipelineData, port.sendPipelineName);
 
         }
-        private void SetData(string data)
+        private void SetData(string data, string pipelineName)
         {
             properties.Clear();
             if (string.IsNullOrEmpty(data))
@@ -35,11 +33,11 @@ namespace PBE.Controllers
             doc.LoadXml(data);
             foreach (XmlNode node in doc.SelectNodes("//Properties"))
             {
-                ReadInnerXmlContent(node.ChildNodes);
+                ReadInnerXmlContent(node.ChildNodes, pipelineName);
             }
         }
 
-        private void ReadInnerXmlContent(XmlNodeList nodes)
+        private void ReadInnerXmlContent(XmlNodeList nodes, string pipelineName)
         {
             foreach (XmlNode node in nodes)
             {
@@ -54,13 +52,13 @@ namespace PBE.Controllers
                     {
                         foreach (XmlNode childNode in node.ChildNodes)
                         {
-                            string warnings = GetWarnings(childNode);
+                            string warnings = GetWarnings(childNode, pipelineName);
                             properties.Add(new PropertyBag(childNode.Name, childNode.InnerText, warnings));
                         }
                     }
                     else
                     {
-                        string warnings = GetWarnings(node);
+                        string warnings = GetWarnings(node, pipelineName);
                         properties.Add(new PropertyBag(node.Name, node.InnerText, warnings));
                     }
                 }
@@ -68,31 +66,46 @@ namespace PBE.Controllers
             }
         }
 
-        private string GetWarnings(XmlNode node)
+        private string GetWarnings(XmlNode node, string pipelineName)
         {
             Dictionary<string, string> expectedValues = new Dictionary<string, string>();
             expectedValues["AssociateInterfaceNameForAck"] = port.name;
             expectedValues["FileLog_SaveDaily"] = "-1";
             expectedValues["TrailingDelimiterAllowed"] = "-1";
             expectedValues["FailLog_SaveDaily"] = "-1";
-            expectedValues["ExceptionSource"] = applicationName;
+            expectedValues["ExceptionSource"] = port.applicationName;
+            
 
             if (expectedValues.ContainsKey(node.Name) &&
                 !node.InnerText.ToLower().Equals(expectedValues[node.Name].ToLower()))
             {
                 return "⚠ The expected value is " + expectedValues[node.Name];
             }
+
+            // For send port CorolarHL7v2XAckReceivePipeline, ConsumeMessage should be true ("1")
+            // and for receive port, CorolarHL7v2XAckSendPipeline ConsumeMessage should be false ("0")
+            // it seems contradictory that for one false is 0 and for the other true is 0 but that's what I observed
+            if (node.Name=="ConsumeMessage")
+            {
+                if (pipelineName.EndsWith("CorolarHL7v2XAckReceivePipeline") && !node.InnerText.ToLower().Equals("1")){
+                    return "⚠ The expected value is 1 (true)";
+
+                }else if (pipelineName.EndsWith("CorolarHL7v2XAckSendPipeline") && !node.InnerText.ToLower().Equals("0"))
+                {
+                    return "⚠ The expected value is 0 (false)";
+                }
+            }
             return "✓";
         }
 
         public void UpdatePipelineData(Dictionary<string, string> data, string promotions)
         {
-            string dataXpath = "./ReceiveLocations/ReceiveLocation/ReceivePipelineData";
+            XmlNode node = port.receivePipelineDataNode;
             if (!isReceivePipelineData)
             {
-                dataXpath = "./ReceiveLocations/ReceiveLocation/SendPipelineData";
+                node = port.sendPipelineDataNode;
             }
-            XmlNode node = port.portNode.SelectSingleNode(dataXpath);
+
             string res = UpdateInnerXmlContent(node.ChildNodes, data, promotions); // escaped xml
             res = XmlHelper.ConvertEscapedXmlToUnescaped(res);
             node.InnerText = res;
