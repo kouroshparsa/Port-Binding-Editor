@@ -98,7 +98,7 @@ node [margin=0.1 fontcolor=blue width=0.5 shape=rectangle style=""rounded, fille
             doc.LoadXml(f);
             foreach (XmlNode node in doc.SelectNodes(xPath))
             {
-                ports.Add(node.Attributes["Value"].Value.ToString());
+                ports.Add(node.Attributes["Value"].Value.ToString().Trim());
             }
             return ports;
         }

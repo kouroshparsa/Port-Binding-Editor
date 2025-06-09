@@ -85,7 +85,7 @@ namespace PBE.Controllers
             // For send port CorolarHL7v2XAckReceivePipeline, ConsumeMessage should be true ("1")
             // and for receive port, CorolarHL7v2XAckSendPipeline ConsumeMessage should be false ("0")
             // it seems contradictory that for one false is 0 and for the other true is 0 but that's what I observed
-            if (node.Name=="ConsumeMessage")
+            if (node.Name=="ConsumeMessage" && pipelineName != null)
             {
                 if (pipelineName.EndsWith("CorolarHL7v2XAckReceivePipeline") && !node.InnerText.ToLower().Equals("1")){
                     return "⚠ The expected value is 1 (true)";

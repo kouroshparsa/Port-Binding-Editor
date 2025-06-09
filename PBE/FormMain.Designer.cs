@@ -390,7 +390,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "Port Binding Editor 1.0.1";
+            this.Text = "Port Binding Editor 1.0.3";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.contextMenuStripTreeNodes.ResumeLayout(false);
             this.menuStripMain.ResumeLayout(false);
