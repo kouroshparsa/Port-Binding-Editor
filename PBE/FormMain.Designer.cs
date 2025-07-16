@@ -146,6 +146,7 @@
             // 
             // contextMenuStripTreeNodes
             // 
+            this.contextMenuStripTreeNodes.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripTreeNodes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filtersToolStripMenuItem,
             this.transportTypeToolStripMenuItem,
@@ -158,61 +159,61 @@
             this.pipelineDataToolStripMenuItem,
             this.applicationToolStripMenuItem});
             this.contextMenuStripTreeNodes.Name = "contextMenuStripTreeNodes";
-            this.contextMenuStripTreeNodes.Size = new System.Drawing.Size(180, 224);
+            this.contextMenuStripTreeNodes.Size = new System.Drawing.Size(243, 304);
             // 
             // filtersToolStripMenuItem
             // 
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
-            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.filtersToolStripMenuItem.Text = "Filters";
             this.filtersToolStripMenuItem.Click += new System.EventHandler(this.filtersToolStripMenuItem_Click);
             // 
             // transportTypeToolStripMenuItem
             // 
             this.transportTypeToolStripMenuItem.Name = "transportTypeToolStripMenuItem";
-            this.transportTypeToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.transportTypeToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.transportTypeToolStripMenuItem.Text = "Transport Type Data";
             this.transportTypeToolStripMenuItem.Click += new System.EventHandler(this.transportTypeToolStripMenuItem_Click);
             // 
             // addressToolStripMenuItem
             // 
             this.addressToolStripMenuItem.Name = "addressToolStripMenuItem";
-            this.addressToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.addressToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.addressToolStripMenuItem.Text = "Address";
             this.addressToolStripMenuItem.Click += new System.EventHandler(this.addressToolStripMenuItem_Click);
             // 
             // handlerToolStripMenuItem
             // 
             this.handlerToolStripMenuItem.Name = "handlerToolStripMenuItem";
-            this.handlerToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.handlerToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.handlerToolStripMenuItem.Text = "Handler";
             this.handlerToolStripMenuItem.Click += new System.EventHandler(this.handlerToolStripMenuItem_Click);
             // 
             // deletePortToolStripMenuItem
             // 
             this.deletePortToolStripMenuItem.Name = "deletePortToolStripMenuItem";
-            this.deletePortToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.deletePortToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.deletePortToolStripMenuItem.Text = "Delete Port";
             this.deletePortToolStripMenuItem.Click += new System.EventHandler(this.deletePortToolStripMenuItem_Click);
             // 
             // copyPortToolStripMenuItem
             // 
             this.copyPortToolStripMenuItem.Name = "copyPortToolStripMenuItem";
-            this.copyPortToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.copyPortToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.copyPortToolStripMenuItem.Text = "Copy Port";
             this.copyPortToolStripMenuItem.Click += new System.EventHandler(this.copyPortToolStripMenuItem_Click);
             // 
             // pastePortToolStripMenuItem
             // 
             this.pastePortToolStripMenuItem.Name = "pastePortToolStripMenuItem";
-            this.pastePortToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.pastePortToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.pastePortToolStripMenuItem.Text = "Paste Port";
             this.pastePortToolStripMenuItem.Click += new System.EventHandler(this.pastePortToolStripMenuItem_Click);
             // 
             // renamePortToolStripMenuItem
             // 
             this.renamePortToolStripMenuItem.Name = "renamePortToolStripMenuItem";
-            this.renamePortToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.renamePortToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.renamePortToolStripMenuItem.Text = "Rename Port";
             this.renamePortToolStripMenuItem.Click += new System.EventHandler(this.renamePortToolStripMenuItem_Click);
             // 
@@ -222,37 +223,38 @@
             this.receiveToolStripMenuItem,
             this.sendToolStripMenuItem});
             this.pipelineDataToolStripMenuItem.Name = "pipelineDataToolStripMenuItem";
-            this.pipelineDataToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.pipelineDataToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.pipelineDataToolStripMenuItem.Text = "Pipeline Data";
             // 
             // receiveToolStripMenuItem
             // 
             this.receiveToolStripMenuItem.Name = "receiveToolStripMenuItem";
-            this.receiveToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.receiveToolStripMenuItem.Size = new System.Drawing.Size(154, 30);
             this.receiveToolStripMenuItem.Text = "Receive";
             this.receiveToolStripMenuItem.Click += new System.EventHandler(this.receiveToolStripMenuItem_Click);
             // 
             // sendToolStripMenuItem
             // 
             this.sendToolStripMenuItem.Name = "sendToolStripMenuItem";
-            this.sendToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.sendToolStripMenuItem.Size = new System.Drawing.Size(154, 30);
             this.sendToolStripMenuItem.Text = "Send";
             this.sendToolStripMenuItem.Click += new System.EventHandler(this.sendToolStripMenuItem_Click);
             // 
             // applicationToolStripMenuItem
             // 
             this.applicationToolStripMenuItem.Name = "applicationToolStripMenuItem";
-            this.applicationToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.applicationToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.applicationToolStripMenuItem.Text = "Application";
             this.applicationToolStripMenuItem.Click += new System.EventHandler(this.applicationToolStripMenuItem_Click);
             // 
             // menuStripMain
             // 
+            this.menuStripMain.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importFromBindingFileToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(599, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(599, 33);
             this.menuStripMain.TabIndex = 7;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -265,41 +267,41 @@
             this.exportBindingsToolStripMenuItem,
             this.resetAllToolStripMenuItem});
             this.importFromBindingFileToolStripMenuItem.Name = "importFromBindingFileToolStripMenuItem";
-            this.importFromBindingFileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.importFromBindingFileToolStripMenuItem.Size = new System.Drawing.Size(50, 29);
             this.importFromBindingFileToolStripMenuItem.Text = "File";
             // 
             // importFromBindingFileToolStripMenuItem1
             // 
             this.importFromBindingFileToolStripMenuItem1.Name = "importFromBindingFileToolStripMenuItem1";
-            this.importFromBindingFileToolStripMenuItem1.Size = new System.Drawing.Size(227, 22);
+            this.importFromBindingFileToolStripMenuItem1.Size = new System.Drawing.Size(328, 30);
             this.importFromBindingFileToolStripMenuItem1.Text = "Import port binding file";
             this.importFromBindingFileToolStripMenuItem1.Click += new System.EventHandler(this.importFromBindingFileToolStripMenuItem1_Click);
             // 
             // importSettingsFileGeneratorToolStripMenuItem
             // 
             this.importSettingsFileGeneratorToolStripMenuItem.Name = "importSettingsFileGeneratorToolStripMenuItem";
-            this.importSettingsFileGeneratorToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.importSettingsFileGeneratorToolStripMenuItem.Size = new System.Drawing.Size(328, 30);
             this.importSettingsFileGeneratorToolStripMenuItem.Text = "Import settings file generator";
             this.importSettingsFileGeneratorToolStripMenuItem.Click += new System.EventHandler(this.importSettingsFileGeneratorToolStripMenuItem_Click);
             // 
             // reloadWithSubstitutionsToolStripMenuItem
             // 
             this.reloadWithSubstitutionsToolStripMenuItem.Name = "reloadWithSubstitutionsToolStripMenuItem";
-            this.reloadWithSubstitutionsToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.reloadWithSubstitutionsToolStripMenuItem.Size = new System.Drawing.Size(328, 30);
             this.reloadWithSubstitutionsToolStripMenuItem.Text = "Reload with substitutions";
             this.reloadWithSubstitutionsToolStripMenuItem.Click += new System.EventHandler(this.reloadWithSubstitutionsToolStripMenuItem_Click);
             // 
             // exportBindingsToolStripMenuItem
             // 
             this.exportBindingsToolStripMenuItem.Name = "exportBindingsToolStripMenuItem";
-            this.exportBindingsToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.exportBindingsToolStripMenuItem.Size = new System.Drawing.Size(328, 30);
             this.exportBindingsToolStripMenuItem.Text = "Export bindings";
             this.exportBindingsToolStripMenuItem.Click += new System.EventHandler(this.exportBindingsToolStripMenuItem_Click);
             // 
             // resetAllToolStripMenuItem
             // 
             this.resetAllToolStripMenuItem.Name = "resetAllToolStripMenuItem";
-            this.resetAllToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.resetAllToolStripMenuItem.Size = new System.Drawing.Size(328, 30);
             this.resetAllToolStripMenuItem.Text = "Delete and Reset All";
             this.resetAllToolStripMenuItem.Click += new System.EventHandler(this.resetAllToolStripMenuItem_Click);
             // 
@@ -361,15 +363,16 @@
             // 
             // contextMenuStripFlowDiagram
             // 
+            this.contextMenuStripFlowDiagram.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripFlowDiagram.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveImageToolStripMenuItem});
             this.contextMenuStripFlowDiagram.Name = "contextMenuStripFlowDiagram";
-            this.contextMenuStripFlowDiagram.Size = new System.Drawing.Size(135, 26);
+            this.contextMenuStripFlowDiagram.Size = new System.Drawing.Size(177, 34);
             // 
             // saveImageToolStripMenuItem
             // 
             this.saveImageToolStripMenuItem.Name = "saveImageToolStripMenuItem";
-            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(176, 30);
             this.saveImageToolStripMenuItem.Text = "Save Image";
             this.saveImageToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
             // 
@@ -390,7 +393,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "Port Binding Editor 1.0.3";
+            this.Text = "Port Binding Editor 1.0.4";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.contextMenuStripTreeNodes.ResumeLayout(false);
             this.menuStripMain.ResumeLayout(false);

@@ -57,7 +57,7 @@ namespace PBE.Controllers
                 }else if(settingsRow) {
                     string key = row[0];
                     string default_val = environment_inds[default_val_ind];
-                    for (int ind = 1; ind < row.Count; ind++)
+                    for (int ind = 1; ind < Math.Min(environment_inds.Count, row.Count); ind++)
                     {
                         string env = environment_inds[ind];
                         string val = row[ind];
