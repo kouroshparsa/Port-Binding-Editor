@@ -13,7 +13,6 @@ namespace PBE
     public partial class EnvironmentSlectionForm : Form
     {
         public string selectedEnv = null;
-        private string[] v;
 
         public EnvironmentSlectionForm()
         {

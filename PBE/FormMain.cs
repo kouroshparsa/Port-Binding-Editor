@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Linq;
 using PBE.Utils;
+using System.IO;
 
 namespace PBE
 {
@@ -42,6 +43,12 @@ namespace PBE
                         this.bindings = BindingParser.Parse(of.FileName);
                         TreeNodeHelper.DrawTree(treeView1, this.bindings);
                         DrawFlow();
+
+                        string settingsPath = Path.Combine(Path.GetDirectoryName(of.FileName), "SettingsFileGenerator.xml");
+                        if (File.Exists(settingsPath))
+                        {
+                            textBoxSettingsFileGeneratorFile.Text = settingsPath;
+                        }
                     }
                     catch (Exception ex)
                     {

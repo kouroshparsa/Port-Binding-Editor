@@ -30,7 +30,7 @@ namespace PBE.Controllers
             int ind = 0;
             foreach (XmlNode node in nodes)
             {
-                node.Attributes.RemoveNamedItem("xmlns:xsi");
+                //node.Attributes.RemoveNamedItem("xmlns:xsi");  DO NOT remove named item. It causes some attributes keys to vanish
                 string name = node.Attributes["Name"].Value;
                 bindings.sendPorts.Add(name, new SendPort(name, node, node.OuterXml, ind));
                 ind += 1;

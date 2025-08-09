@@ -4,13 +4,13 @@ namespace PBE.Models
 {
     public class ReceivePort: Port
     {
-        private string _name;
-        private string _address;
-        private string _handler;
-        private string _filters;
-        private string _transportTypeData;
-        private string _receivePipelineData;
-        private string _sendPipelineData;
+        private string _name = null;
+        private string _address = null;
+        private string _handler = null;
+        private string _filters = null;
+        private string _transportTypeData = null;
+        private string _receivePipelineData = null;
+        private string _sendPipelineData = null;
         private string _receivePipelineName = null;
         private string _sendPipelineName = null;
         public ReceivePort(string xml)

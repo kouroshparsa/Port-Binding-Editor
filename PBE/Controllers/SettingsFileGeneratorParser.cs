@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace PBE.Controllers
@@ -57,15 +55,20 @@ namespace PBE.Controllers
                 }else if(settingsRow) {
                     string key = row[0];
                     string default_val = environment_inds[default_val_ind];
-                    for (int ind = 1; ind < Math.Min(environment_inds.Count, row.Count); ind++)
+                    for (int ind = 1; ind < environment_inds.Count; ind++)
                     {
                         string env = environment_inds[ind];
-                        string val = row[ind];
-                        if (ind != default_val_ind && string.IsNullOrEmpty(val))
+                        data[env][key] = "";
+                        if (ind < row.Count)
                         {
-                            val = row[default_val_ind];
+                            string val = row[ind];
+                            if (ind != default_val_ind && string.IsNullOrEmpty(val))
+                            {
+                                val = row[default_val_ind];
+                            }
+                            data[env][key] = val;
                         }
-                        data[env][key] = val;
+                        
                     }
                 }
             }
