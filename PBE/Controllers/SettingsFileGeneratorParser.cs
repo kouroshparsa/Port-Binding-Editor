@@ -37,22 +37,29 @@ namespace PBE.Controllers
             int default_val_ind = 1;
             foreach (var row in rows)
             {
-                if (row[0] == "Environment Name:")
+                if (row.Count == 0)
+                {
+                    continue;
+                }
+                else if (row[0] == "Environment Name:")
                 {
                     for (int ind = 1; ind < row.Count; ind++)
                     {
                         string env = row[ind];
                         environment_inds[ind] = env;
-                        if(env == "Default Values")
+                        if (env == "Default Values")
                         {
                             default_val_ind = ind;
                         }
                         data[env] = new Dictionary<string, string>();
                     }
-                }else if(row[0] == "Settings:")
+                }
+                else if (row[0] == "Settings:")
                 {
                     settingsRow = true;
-                }else if(settingsRow) {
+                }
+                else if (settingsRow)
+                {
                     string key = row[0];
                     string default_val = environment_inds[default_val_ind];
                     for (int ind = 1; ind < environment_inds.Count; ind++)
@@ -68,7 +75,7 @@ namespace PBE.Controllers
                             }
                             data[env][key] = val;
                         }
-                        
+
                     }
                 }
             }

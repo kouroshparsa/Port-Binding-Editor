@@ -16,21 +16,9 @@ namespace PBE
         private DataBindings bindings = new DataBindings();
         public FormMain()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
         }
 
-        private void DrawFlow()
-        {
-            try
-            {
-                Image img = GraphvizHelper.GetGraph(this.bindings);
-                imageBox1.Image = img;
-            }catch(Exception ex)
-            {
-                MessageBox.Show("Error encountered when trying to generate the flow diagram.\r\n" + ex);
-            }
-        }
         private void btnPortBindingsMaster_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog of = new OpenFileDialog())
@@ -42,7 +30,6 @@ namespace PBE
                     {
                         this.bindings = BindingParser.Parse(of.FileName);
                         TreeNodeHelper.DrawTree(treeView1, this.bindings);
-                        DrawFlow();
 
                         string settingsPath = Path.Combine(Path.GetDirectoryName(of.FileName), "SettingsFileGenerator.xml");
                         if (File.Exists(settingsPath))
@@ -106,7 +93,6 @@ namespace PBE
             var form = new FilterEditorForm(port);
             form.ShowDialog();
             TreeNodeHelper.DrawTree(treeView1, this.bindings);
-            DrawFlow();
         }
 
         private string GetSelectedPort()
@@ -155,10 +141,6 @@ namespace PBE
             
         }
 
-        private void importFromBindingFileToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            btnPortBindingsMaster_Click(sender, e);
-        }
 
         private void exportBindingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -218,23 +200,6 @@ namespace PBE
             }
         }
 
-        private void btnValidate_Click(object sender, EventArgs e)
-        {
-            if(string.IsNullOrEmpty(textBoxPortBindingMasterFile.Text) ||
-                string.IsNullOrEmpty(textBoxSettingsFileGeneratorFile.Text))
-            {
-                MessageBox.Show("Please enter a port binding master file and a file generator to validate against.");
-                return;
-            }
-            var form = new ValidationForm(textBoxPortBindingMasterFile.Text, textBoxSettingsFileGeneratorFile.Text, bindings);
-            form.ShowDialog();
-        }
-
-        private void importSettingsFileGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnSettingsFile_Click(sender, e);
-        }
-
         private void deletePortToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show("Are you sure to delete this port?",
@@ -257,7 +222,6 @@ namespace PBE
             }
             ports.Remove(portName);
             TreeNodeHelper.DrawTree(treeView1, this.bindings);
-            DrawFlow();
         }
 
         private void renamePort(string oldName, string newName)
@@ -267,7 +231,6 @@ namespace PBE
             ports.Remove(oldName);
             ports[newName].name = newName;
             TreeNodeHelper.DrawTree(treeView1, this.bindings);
-            DrawFlow();
         }
         private void renamePortToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -336,14 +299,12 @@ namespace PBE
                     var port = new ReceivePort(portXml);
                     bindings.receivePorts.Add(port.name, port);
                     TreeNodeHelper.DrawTree(treeView1, this.bindings);
-                    DrawFlow();
                 }
                 else if (portXml.StartsWith("<SendPort"))
                 {
                     var port = new SendPort(portXml);
                     bindings.sendPorts.Add(port.name, port);
                     TreeNodeHelper.DrawTree(treeView1, this.bindings);
-                    DrawFlow();
                 }
                 else
                 {
@@ -367,14 +328,9 @@ namespace PBE
             {
                 this.bindings = BindingParser.Parse(textBoxPortBindingMasterFile.Text);
                 TreeNodeHelper.DrawTree(treeView1, this.bindings);
-                DrawFlow();
             }
         }
-
-        private void pipelineDataToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void receiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -408,47 +364,6 @@ namespace PBE
             form.ShowDialog();
         }
 
-        private void btnValidatePorts_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(bindings == null)
-            {
-                MessageBox.Show("First load a port binding file");
-                return;
-            }
-
-
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "Image Files (*.jpg)|*.jpg";
-                sfd.DefaultExt = "jpg";
-                sfd.AddExtension = true;
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    Image img = GraphvizHelper.GetGraph(this.bindings);
-                    img.Save(sfd.FileName, ImageFormat.Jpeg);
-                }
-            }
-
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void importPortBindingFileWithSubstitutionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void reloadWithSubstitutionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxPortBindingMasterFile.Text) ||
@@ -467,20 +382,18 @@ namespace PBE
                 if (form.selectedEnv != null) {
                     this.bindings = BindingParser.ParseWithSubstitutions(textBoxPortBindingMasterFile.Text, res[form.selectedEnv]);
                     TreeNodeHelper.DrawTree(treeView1, this.bindings);
-                    DrawFlow();
                 }
             }catch(Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message + " " + ex.StackTrace);
             }
 
         }
 
-        private void resetAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBoxPortBindingMasterFile.Text = "";
             textBoxSettingsFileGeneratorFile.Text = "";
-            this.imageBox1.Image = null; ;
             this.bindings = new DataBindings();
             treeView1.Nodes.Clear();
         }
@@ -503,7 +416,6 @@ namespace PBE
             {
                 port.applicationName = form.enteredValue;
                 TreeNodeHelper.DrawTree(treeView1, this.bindings);
-                DrawFlow();
             }
         }
     }
